@@ -1,3 +1,4 @@
+
 const playBtn = document.getElementById("play"),
           prevBtn =   document.getElementById("prev"),
           nextBtn      =       document.getElementById("next"),
@@ -18,6 +19,7 @@ const displayTime       =  document.getElementById("displayTime");
 let audios = ['sample_1','sample_2','sample_3'];
 let currentIdx = 0;
 
+
 const loadAudio = (audio)=> {
         audioScreen.src = `./soursces/${audio}.mp3`;
 }
@@ -26,24 +28,24 @@ loadAudio(audios[currentIdx]);
 
 
 const playAudio = () => {
-        playBtn.querySelector("fas").classList.remove("fa-play");
-        playBtn.querySelector("fas").classList.add("fa-pause");
+        playBtn.querySelector("i.fas").classList.remove("fa-play");
+        playBtn.querySelector("i.fas").classList.add("fa-pause");
         audioScreen.play();
 }
 
 
 const pauseAudio = () => {
-        playBtn.querySelector("fas").classList.remove("fa-pause");
-        playBtn.querySelector("fas").classList.add("fa-play");
+        playBtn.querySelector("i.fas").classList.remove("fa-pause");
+        playBtn.querySelector("i.fas").classList.add("fa-play");
         audioScreen.pause();
 }
 
 
 const playAndPauseAudio = () => {
         if(audioScreen.paused){
-                audioScreen.play();
+                playAudio();
         }else{
-                audioScreen.pause();
+                pauseAudio();
         }
 }
 
@@ -77,29 +79,39 @@ const stopAudio = () => {
 
 
 const updateProgress = (e) => {
-        const {currentTime} = e.target;
-        const {duration} = e.target;
+        const {currentTime,duration} = e.target;
 
         if(audioScreen.currentTime === 0){
-                audioScreen.style.width = `0%`;
+                audioScreen.style.width = "0%";
         }else {
                 const progressPerccents = (currentTime/duration)*100;
                 audioScreen.style.width = `${progressPerccents}%`;
         }
-        const mins = Math.floor(audioScreen.currentTime / 60);
-        const secs  = Math.floor(audioScreen.currentTime % 60);
+
+          //forward
+                /*
+                let mins = Math.floor(getaudioscreen.currentTime / 60);
+                let secs = Math.floor(getaudioscreen.currentTime % 60);
+                */
+
+        const mins = Math.floor((duration - audioScreen.currentTime) / 60);
+        const secs  = Math.floor((duration - audioScreen.currentTime) % 60);
 
         const minsValue = mins.toString().padStart(2,'0');
         const secsValue  = secs.toString().padStart(2,'0');
         displayTime.innerText = `${minsValue}:${secsValue}`;
 }
 
-const setAudioProgress = (e) => {
+
+
+function setAudioProgress(e){
         const clickWidth = this.clientWidth;
         const clickX = e.offsetX;
-        const {duration} = audioScreen.duration;
-        audioScreen.currentTime = (clickX/clickWidth) * duration;
+        const duration = audioScreen.duration;
+        audioScreen.currentTime  = (clickX/clickWidth) * duration;
+
 }
+
 
 
 
@@ -117,6 +129,13 @@ const volumeControlAudio = () => {
 
 }
 
+/**
+ * Method-1
+ */
+// audioScreen.addEventListener('ended',nextAudio);
+/**
+ * Method-1
+ */
 audioScreen.addEventListener("timeupdate", updateProgress);
 audioScreen.addEventListener("click", playAudio);
 audioScreen.addEventListener("click", pauseAudio);
@@ -127,7 +146,7 @@ nextBtn.addEventListener("click",nextAudio);
 stopBtn.addEventListener("click",stopAudio);
 
 progressContainer.addEventListener("click",setAudioProgress);
-volumeProgress.addEventListener("click", volumeControlAudio);
+volumeProgress.addEventListener("change", volumeControlAudio);
 
 
 
