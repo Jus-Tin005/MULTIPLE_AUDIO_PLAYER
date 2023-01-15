@@ -1,0 +1,82 @@
+*{
+        box-sizing: border-box;
+}
+
+body {
+        padding: 0;
+        margin: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.container{
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+}
+
+.audioScreen{
+        cursor: pointer;
+}
+
+.controls{
+        width: 100%;
+        background-color: #222;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 0;
+}
+
+
+.controlBtn{
+        background-color:transparent;
+        color: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        margin: 0 5px;
+}
+
+.progressContainer{
+        width: 70%;
+        height: 4px;
+        background-color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        overflow: hidden;
+}
+
+.progress {
+        width: 70%;
+        height: 100%;
+        background-color:steelblue;
+
+        transition: width 0.1s linear;
+}
+
+.volumeProgress{
+        margin: 0 1px;
+}
+
+.controlBtn .fa-play {
+        color: steelblue;
+}
+
+.controlBtn .fa-stop {
+        color: tomato;
+}
+
+.controlBtn .fa-pause {
+        color: #fff;
+}
+
+
+.displayTime{
+        padding-top: 10px;
+}
